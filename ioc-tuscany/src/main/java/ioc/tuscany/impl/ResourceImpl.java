@@ -16,13 +16,18 @@
  */
 package ioc.tuscany.impl;
 
+import java.net.URI;
+
 import ioc.tuscany.Resource;
 import ioc.tuscany.Service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 import org.oasisopen.sca.annotation.AllowsPassByReference;
 import org.oasisopen.sca.annotation.Reference;
@@ -46,6 +51,16 @@ public class ResourceImpl implements Resource {
         service.foo();
 
         return Response.ok().build();
+    }
+    
+    @POST
+    @Path("/foo")
+    @Consumes(MediaType.WILDCARD)
+    public Response createFoo() {
+        String key = service.createFoo();
+        URI location = UriBuilder.fromPath("{key}").build(key);
+        
+        return Response.created(location).build();
     }
 
 }

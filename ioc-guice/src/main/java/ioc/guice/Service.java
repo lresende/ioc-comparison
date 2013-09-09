@@ -20,4 +20,6 @@ package ioc.guice;
 public interface Service {
 
     public void foo();
+    
+    public String createFoo();
 }

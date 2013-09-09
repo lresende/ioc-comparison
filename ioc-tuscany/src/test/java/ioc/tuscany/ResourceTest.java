@@ -16,8 +16,10 @@
  */
 package ioc.tuscany;
 
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.tuscany.sca.node.Contribution;
 import org.apache.tuscany.sca.node.ContributionLocationHelper;
 import org.apache.tuscany.sca.node.Node;
@@ -26,6 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -54,6 +57,17 @@ public class ResourceTest {
         WebResponse response = wc.getResource(request);
 
         assertThat(response.getResponseCode()).isEqualTo(200);
+    }
+    
+
+    @Test
+    public void TestCreateFoo() throws Exception {
+        WebConversation wc = new WebConversation();
+        WebRequest request = new PostMethodWebRequest(SERVICE_ENDPOINT + "/foo");
+        WebResponse response = wc.getResource(request);
+
+        System.out.println(response.getHeaderField("location"));
+        assertThat(response.getResponseCode()).isEqualTo(201);
     }
 
 }

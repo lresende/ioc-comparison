@@ -19,10 +19,15 @@ package ioc.guice.impl;
 import ioc.guice.Resource;
 import ioc.guice.Service;
 
+import java.net.URI;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 import com.google.inject.Inject;
 
@@ -45,4 +50,13 @@ public class ResourceImpl implements Resource {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/foo")
+    @Consumes(MediaType.WILDCARD)
+    public Response createFoo() {
+        String key = service.createFoo();
+        URI location = UriBuilder.fromPath("{key}").build(key);
+        
+        return Response.created(location).build();
+    }
 }

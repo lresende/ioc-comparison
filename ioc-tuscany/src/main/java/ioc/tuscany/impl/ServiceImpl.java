@@ -16,6 +16,8 @@
  */
 package ioc.tuscany.impl;
 
+import java.util.UUID;
+
 import ioc.tuscany.Service;
 
 public class ServiceImpl implements Service {
@@ -28,4 +30,10 @@ public class ServiceImpl implements Service {
         System.out.println(">>> Guice service impl : FOO");
     }
 
+    public String createFoo() {
+        String key = UUID.randomUUID().toString();
+        
+        System.out.println(">>> Guice service impl : CreateFOO : " + key);
+        return key;
+    }
 }

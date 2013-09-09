@@ -16,6 +16,8 @@
  */
 package ioc.guice.impl;
 
+import java.util.UUID;
+
 import ioc.guice.Service;
 
 public class ServiceImpl implements Service {
@@ -26,6 +28,13 @@ public class ServiceImpl implements Service {
 
     public void foo() {
         System.out.println(">>> Guice service impl : FOO");
+    }
+    
+    public String createFoo() {
+        String key = UUID.randomUUID().toString();
+        
+        System.out.println(">>> Guice service impl : CreateFOO : " + key);
+        return key;
     }
 
 }

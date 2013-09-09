@@ -16,7 +16,7 @@
  */
 package ioc.guice;
 
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 import ioc.guice.impl.GuiceServletConfig;
 
 import org.eclipse.jetty.server.Server;
@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.google.inject.servlet.GuiceFilter;
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -73,5 +74,15 @@ public class ResourceTest {
         WebResponse response = wc.getResource(request);
 
         assertThat(response.getResponseCode()).isEqualTo(200);
+    }
+    
+    @Test
+    public void TestCreateFoo() throws Exception {
+        WebConversation wc = new WebConversation();
+        WebRequest request = new PostMethodWebRequest(SERVICE_ENDPOINT + "/foo");
+        WebResponse response = wc.getResource(request);
+
+        System.out.println(response.getHeaderField("location"));
+        assertThat(response.getResponseCode()).isEqualTo(201);
     }
 }

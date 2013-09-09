@@ -22,4 +22,6 @@ import org.oasisopen.sca.annotation.Remotable;
 public interface Service {
 
     public void foo();
+    
+    public String createFoo();
 }
